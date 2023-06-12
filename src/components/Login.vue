@@ -53,7 +53,7 @@ export default {
       })
     })
 
-    // Create new user 
+    // Create new user ======
     let createUser = () => {
       // data to send
       let userData = {
@@ -61,13 +61,13 @@ export default {
         password: password.value,
         date:Date.now()
       };
-      // ========= Add user==========
       if (name.value != '' && password.value != '') {
         addDoc(collection(db, 'users'), userData);
         name.value = "";
         password.value = "";
       }
     };
+    // Delete user ======
     let deleteUser = (id) => {
       deleteDoc(doc(db, "users", id))
     }
