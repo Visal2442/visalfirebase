@@ -1,16 +1,17 @@
 <template>
   <div>
     <Header/>
-    <!-- Use RouterView to display contents in route.  -->
-    <RouterView/>
-    <Footer/>
+    
+    <Footer v-if="route.name !== 'UserDetail'" ></Footer>
   </div>
+    <RouterView/>    <!-- Use RouterView to display contents in route.  -->
 </template>
 
 <script>
 import { ref, computed } from "vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import { useRoute } from 'vue-router';
 
 export default {
   components:{
@@ -18,6 +19,7 @@ export default {
     Footer
   },
   setup(){
+    const route = useRoute();
     const greeting = ref("hello")
     const name = ref("");
 
@@ -37,7 +39,8 @@ export default {
       greeting,
       name,
       changeGreeting,
-      addName
+      addName,
+      route
     }
   },
   

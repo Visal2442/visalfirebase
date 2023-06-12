@@ -19,18 +19,21 @@
         <p>{{ user.password }}</p>
       </div>
       <button @click="deleteUser(user.id)">Delete</button>
+     <RouterLink :to="{name:'UserDetail', params:{id: user.id}}"><button>Detail</button></RouterLink>
+     <!-- <RouterLink :to="{name : 'UserDetail', params:{id : 3}}">User3</RouterLink> -->
     </div>
   </div>
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import { computed, onMounted, ref } from "vue";
 import db from "../firebase/init";
 import { collection, addDoc, getDoc, setDoc, doc, query, getDocs, onSnapshot, orderBy, deleteDoc } from "firebase/firestore";
 
-
 export default {
   setup() {
+    const route = useRoute();
     const name = ref("");
     const password = ref("");
     const users = ref([]);
@@ -48,8 +51,6 @@ export default {
           });
         })
       })
-
-
     })
 
     // Create new user 
@@ -60,14 +61,7 @@ export default {
         password: password.value,
         date:Date.now()
       };
-      // ========= Way 1 ==========
-      // ----- collectionReference = doc(db, "collectionName", "key")-----
-      // if(name.value != '' && password.value != ''){
-      //   setDoc(doc(db, "users", userData.name), userData);  // use this to prevent overwrite data
-      //   name.value = "";
-      //   password.value = "";
-      // }
-      // ========= Way 2 ==========
+      // ========= Add user==========
       if (name.value != '' && password.value != '') {
         addDoc(collection(db, 'users'), userData);
         name.value = "";
@@ -75,15 +69,14 @@ export default {
       }
     };
     let deleteUser = (id) => {
-      // console.log(id);
       deleteDoc(doc(db, "users", id))
-      // console.log();
     }
 
     return {
       users,
       name,
       password,
+      route,
       createUser,
       deleteUser
     };

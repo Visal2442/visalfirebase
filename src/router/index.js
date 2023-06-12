@@ -17,6 +17,11 @@ const routes =[
         component:()=>import('../components/Login.vue'),
     },
     {
+        path:'/user/detail/:id',
+        name:'UserDetail',
+        component:()=>import('../views/UserDetail.vue'),
+    },
+    {
         // 404 Not Found page 
         path:'/:catchAll(.*)',
         name:'NotFound',
