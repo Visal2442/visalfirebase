@@ -13,9 +13,12 @@
     </div>
   </form>
   <div class="card-container">
-    <div class="card" v-for="user in users" :key="user.name">
-      <h1>{{ user.name }}</h1>
-      <p>{{ user.password }}</p>
+    <div class="card" v-for="(user, index) in users" :key="index">
+      <div>
+        <h1>{{ user.name }}</h1>
+        <p>{{ user.password }}</p>
+      </div>
+      <button @click="deleteUser(user.id)">Delete</button>
     </div>
   </div>
 </template>
@@ -23,7 +26,7 @@
 <script>
 import { computed, onMounted, ref } from "vue";
 import db from "../firebase/init";
-import { collection, addDoc, getDoc, setDoc, doc, query, getDocs,onSnapshot } from "firebase/firestore";
+import { collection, addDoc, getDoc, setDoc, doc, query, getDocs, onSnapshot, orderBy, deleteDoc } from "firebase/firestore";
 
 
 export default {
@@ -32,67 +35,60 @@ export default {
     const password = ref("");
     const users = ref([]);
 
-    // Get users 
-    let getUsers = ()=>{
-      
-      // users.value = [];
-      // db.collection('users').get().then(allUsers=>{
-      //   allUsers.forEach(user=>{
-      //     users.value.push(user.data());
-      //   })
-      // })
-      // let q = query(collection(db, 'users'));
-      // let docUsers = await getDocs(q)
-      // docUsers.forEach(user=>{
-      //   allUsers.push(user.data());
-      // })
-      // users.value= allUsers
-     
-    };
-    
-    // Computed 
-    // let allUsers = computed(()=>{
-    //   return users.value;
-    // })
-
-    // Mounted 
-    onMounted(()=>{
-      onSnapshot(collection(db, 'users'), (querySnapshot)=>{
+    // Mounted  (Get users )
+    onMounted(() => {
+      let q = query(collection(db, 'users'), orderBy('date', 'desc'))
+      onSnapshot(q, (allUsers) => {
         users.value = [];
-        querySnapshot.forEach((doc) =>{
-          users.value.push(doc.data());
+        allUsers.forEach((doc) => {
+          users.value.push({
+            id: doc.id,
+            name: doc.data().name,
+            password: doc.data().password,
+          });
         })
       })
-      
+
+
     })
 
-    // Create new use 
-    let createUser =  () => {
+    // Create new user 
+    let createUser = () => {
       // data to send
       let userData = {
         name: name.value,
         password: password.value,
+        date:Date.now()
       };
-      // create document and return references to it
+      // ========= Way 1 ==========
       // ----- collectionReference = doc(db, "collectionName", "key")-----
-      // const docRef = await setDoc(doc(db, "users", userData.name), userData);  // use this to prevent overwrite data
-      if(name.value != '' && password.value != ''){
-        setDoc(doc(db, "users", userData.name), userData);  // use this to prevent overwrite data
+      // if(name.value != '' && password.value != ''){
+      //   setDoc(doc(db, "users", userData.name), userData);  // use this to prevent overwrite data
+      //   name.value = "";
+      //   password.value = "";
+      // }
+      // ========= Way 2 ==========
+      if (name.value != '' && password.value != '') {
+        addDoc(collection(db, 'users'), userData);
         name.value = "";
         password.value = "";
-        // getUsers();
       }
     };
-    // getUsers();  
+    let deleteUser = (id) => {
+      // console.log(id);
+      deleteDoc(doc(db, "users", id))
+      // console.log();
+    }
 
     return {
       users,
       name,
       password,
       createUser,
+      deleteUser
     };
   },
-  
+
 };
 </script>
 
@@ -105,30 +101,35 @@ form {
   align-items: center;
   padding: 3rem;
 }
+
 .input {
   display: flex;
   flex-direction: column;
   align-items: start;
   margin-top: 10px;
 }
+
 input {
   width: 100%;
 }
+
 button {
   margin-top: 10px;
 }
+
 .card-container {
   /* background: #b3d8d7; */
   width: 70%;
   margin: auto;
   padding: 1rem;
 }
+
 .card {
   background: #deebea;
   width: 50%;
   margin: 20px auto;
 }
-h1{
+
+h1 {
   color: black;
-}
-</style>
+}</style>
