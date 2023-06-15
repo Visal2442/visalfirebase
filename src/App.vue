@@ -4,7 +4,7 @@
     
     <Footer v-if="route.name !== 'UserDetail'" ></Footer>
   </div>
-    <RouterView/>    <!-- Use RouterView to display contents in route.  -->
+    <router-view/>    <!-- Use RouterView to display contents in route.  -->
 </template>
 
 <script>

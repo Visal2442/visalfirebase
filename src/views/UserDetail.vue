@@ -1,5 +1,5 @@
 <template>
-  <h1>ID   : {{ route.params.id }}</h1>
+  <h1>ID   : {{ route.params.userId }}</h1>
   <h1>Name : {{ getUser.name }}</h1>
     <RouterLink :to="{name:'Login'}">Go Back</RouterLink>
 </template>
@@ -17,7 +17,7 @@ export default {
         let user = ref({});
 
         const getUser = computed(()=>{
-            const docRef = doc(db, 'users', route.params.id);
+            const docRef = doc(db, 'users', route.params.userId);
             onSnapshot(docRef, (doc)=>{
                 user.value = doc.data();
             });

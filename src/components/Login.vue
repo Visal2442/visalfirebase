@@ -19,70 +19,71 @@
         <p>{{ user.password }}</p>
       </div>
       <button @click="deleteUser(user.id)">Delete</button>
-     <RouterLink :to="{name:'UserDetail', params:{id: user.id}}"><button>Detail</button></RouterLink>
-     <!-- <RouterLink :to="{name : 'UserDetail', params:{id : 3}}">User3</RouterLink> -->
+      <button @click="userDetail(user.id)">Detail</button>
+      <!-- <RouterLink :to="{ name: 'UserDetail', params: { id: user.id } }"><button>Detail</button></RouterLink> -->
+
     </div>
   </div>
 </template>
 
-<script>
-import { useRoute } from 'vue-router';
+<script setup>
+import { useRoute, useRouter } from 'vue-router';
 import { computed, onMounted, ref } from "vue";
 import db from "../firebase/init";
 import { collection, addDoc, getDoc, setDoc, doc, query, getDocs, onSnapshot, orderBy, deleteDoc } from "firebase/firestore";
 
-export default {
-  setup() {
-    const route = useRoute();
-    const name = ref("");
-    const password = ref("");
-    const users = ref([]);
+const route = useRoute();
+const router = useRouter();
+const name = ref("");
+const password = ref("");
+const users = ref([]);
 
-    // Mounted  (Get users )
-    onMounted(() => {
-      let q = query(collection(db, 'users'), orderBy('date', 'desc'))
-      onSnapshot(q, (allUsers) => {
-        users.value = [];
-        allUsers.forEach((doc) => {
-          users.value.push({
-            id: doc.id,
-            name: doc.data().name,
-            password: doc.data().password,
-          });
-        })
-      })
+// =====================
+// Methods 
+// =====================
+let getUsers = () => {
+  let q = query(collection(db, 'users'), orderBy('date', 'desc'))
+  onSnapshot(q, (allUsers) => {
+    users.value = [];
+    allUsers.forEach((doc) => {
+      users.value.push({
+        id: doc.id,
+        name: doc.data().name,
+        password: doc.data().password,
+      });
     })
-
-    // Create new user ======
-    let createUser = () => {
-      // data to send
-      let userData = {
-        name: name.value,
-        password: password.value,
-        date:Date.now()
-      };
-      if (name.value != '' && password.value != '') {
-        addDoc(collection(db, 'users'), userData);
-        name.value = "";
-        password.value = "";
-      }
-    };
-    // Delete user ======
-    let deleteUser = (id) => {
-      deleteDoc(doc(db, "users", id))
-    }
-
-    return {
-      users,
-      name,
-      password,
-      route,
-      createUser,
-      deleteUser
-    };
-  },
-
+  })
+}
+// Create new user ======
+let createUser = () => {
+  let userData = {
+    name: name.value,
+    password: password.value,
+    date: Date.now()
+  };
+  if (name.value != '' && password.value != '') {
+    addDoc(collection(db, 'users'), userData);
+    name.value = "";
+    password.value = "";
+  }
 };
+// View User's detail =====
+let userDetail=(userId)=>{
+  router.push({name:'UserDetail', params:{userId:userId}})
+}
+// Delete user ======
+let deleteUser = (id) => {
+  deleteDoc(doc(db, "users", id))
+}
+
+// =====================
+// Lifecycle Hooks 
+// =====================
+    // Mounted 
+onMounted(() => {
+  getUsers()
+})
+
 </script>
 
 <style scoped>
@@ -125,4 +126,5 @@ button {
 
 h1 {
   color: black;
-}</style>
+}
+</style>
