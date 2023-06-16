@@ -10,6 +10,11 @@
       <RouterLink :to="{name: 'Login'}" >Login</RouterLink>
     </nav>
 </template>
+<script setup>
+
+
+</script>
+
 <style scoped>
     nav{
         display: flex;

@@ -20,7 +20,6 @@
       </div>
       <button @click="deleteUser(user.id)">Delete</button>
       <button @click="userDetail(user.id)">Detail</button>
-      <!-- <RouterLink :to="{ name: 'UserDetail', params: { id: user.id } }"><button>Detail</button></RouterLink> -->
 
     </div>
   </div>

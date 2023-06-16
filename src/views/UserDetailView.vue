@@ -8,7 +8,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 // Firebase ==========
-import db from '../firebase/init'
+import db from '@/firebase/init'
 import { doc, onSnapshot } from "firebase/firestore";
 
 export default {
