@@ -4,44 +4,14 @@
     <Footer v-if="route.name !== 'UserDetail'" ></Footer>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from "vue";
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-import { useRoute } from 'vue-router';
+import Header from "@components/Header.vue";
+import Footer from "@components/Footer.vue";
+import { useRoute, useRouter } from 'vue-router';
 
-export default {
-  components:{
-    Header,
-    Footer
-  },
-  setup(){
-    const route = useRoute();
-    const greeting = ref("hello")
-    const name = ref("");
+const route = useRoute();
 
-    // Change greeting ---
-    let changeGreeting=()=>{
-      greeting.value = "hi";
-    };
-
-    // Add name -----
-    let addName =()=>{
-      alert(name.value)
-    }
-  
-
-    // Return data -----
-    return{
-      greeting,
-      name,
-      changeGreeting,
-      addName,
-      route
-    }
-  },
-  
-}
 
 </script>
 

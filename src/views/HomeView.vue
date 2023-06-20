@@ -3,18 +3,7 @@
 </template>
 
 <script setup>
-// import { storeToRefs} from 'pinia';
-// import { computed, ref } from 'vue';
-// import { counterStore } from '@/store/store.js'
-import TheCounter from '@/components/counter/TheCounter.vue'
-
-// /*
-// Count
-// */
-// // countStore 
-// const countStore = counterStore();
-// const { increaseCount, decreaseCount} = countStore;    // use to get methods from store
-// const { count, oddOrEven } = storeToRefs(countStore);    // use to get state from store
+import TheCounter from '@components/counter/TheCounter.vue'
 
 </script>
 

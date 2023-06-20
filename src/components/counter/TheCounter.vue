@@ -6,7 +6,7 @@
     <div class="count-button">
         <button @click="decreaseCount()">-</button>
         <button @click="increaseCount()">+</button>
-        <button @click="increaseFive">5+</button>
+        <button @click="increaseFive()">5+</button>
     </div>
     <p>The Counter is : {{ oddOrEven }}</p>
   </div>
@@ -14,7 +14,7 @@
 
 <script setup>
 import { storeToRefs} from 'pinia';
-import { counterStore } from '@/store/store.js'
+import { counterStore } from '@/store/CounterStore.js'
 
 /*
 Count
