@@ -22,9 +22,14 @@ const routes =[
         component:Book
     },
     {
-        path:'/Users',
-        name:'User',
+        path:'/users',
+        name:'Users',
         component:User
+    },
+    {
+        path:'/maps',
+        name:'Maps',
+        component:Book
     },
     {
         path:'/user/detail/:userId',

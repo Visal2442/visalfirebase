@@ -1,32 +1,21 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './style.css'
-import { createPinia } from 'pinia';
-import '@mdi/font/css/materialdesignicons.css';
+import { createApp } from 'vue';
+import App from './App.vue';
 
-// Router ========
+// Vuetify ======
+import vuetify from './plugins/vuetify';
+import { loadFonts } from './plugins/webfontloader';
+
+// Pinia ===== 
+import { createPinia } from 'pinia';
+
+// Router ======
 import router from './router/route';
 
-// Vuetify ========
-import 'vuetify/styles';
-import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
-
-// Mount the app ---------
-const app = createApp(App)
+loadFonts()
 const pinia = createPinia()
-const vuetify = createVuetify({
-    components,
-    directives
-})
-// const vuetify = createVuetify();
+const app = createApp(App)
 
-app.use(router)
 app.use(vuetify)
-// app.use(vuetify,{
-//     iconfont:'mdi'
-// })
+app.use(router)
 app.use(pinia)
 app.mount('#app')
-

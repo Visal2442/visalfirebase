@@ -10,7 +10,7 @@ import TheCounter from '@components/counter/TheCounter.vue'
 <style scoped>
 .count-container{
     width: 40%;
-    background: #d49ef3;
+    background: #deebea;
     margin: 10px auto;
     padding: 10px;
 }

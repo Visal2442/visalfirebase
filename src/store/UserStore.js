@@ -25,7 +25,6 @@ export const userStore = defineStore("userStore", () => {
   const route = useRoute();
   
   const isValid = ref(false);
-  const isTrue = ref(false);
 
   // Get all users
   const getUsers = () => {
@@ -48,10 +47,6 @@ export const userStore = defineStore("userStore", () => {
       password: password.value,
       date: Date.now(),
     };
-    if(!isValid.value){
-      isTrue.value = true;
-      console.log(userData);
-    }
     if (isValid.value) {
       addDoc(collection(db, "users"), userData);
       name.value = "";
