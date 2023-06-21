@@ -3,11 +3,8 @@ import db from "../firebase/init";
 import {
   collection,
   addDoc,
-  getDoc,
-  setDoc,
   doc,
   query,
-  getDocs,
   onSnapshot,
   orderBy,
   deleteDoc,

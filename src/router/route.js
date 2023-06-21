@@ -1,12 +1,13 @@
 import {createRouter, createWebHistory} from 'vue-router';
 /*
-Components
+Components and Views
 */
 import Home from '@views/HomeView.vue';
 import Book from '@views/BookView.vue';
 import User from '@views/UserView.vue';
 import UserDetail from '@views/UserDetailView.vue'
 import NotFound from '@views/NotFoundView.vue';
+import Map from '@views/MapView.vue';
 /*
 Routes
 */
@@ -29,7 +30,7 @@ const routes =[
     {
         path:'/maps',
         name:'Maps',
-        component:Book
+        component:Map
     },
     {
         path:'/user/detail/:userId',

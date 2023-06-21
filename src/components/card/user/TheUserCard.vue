@@ -1,5 +1,5 @@
 <template>
-  <v-container class="w-50">
+  <v-container class="w-33">
     <v-card class="mb-5" v-for="(user, index) in usersStore.allUsers" :key="index" variant="tonal">
       <v-card-item>
         <v-card-title>Name : {{ user.name }}</v-card-title>
