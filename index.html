@@ -5,12 +5,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link for map === -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
     <title>Vuetify 3 Vite Preview</title>
 </head>
 
 <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="map"></div>
 </body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const apiKey = 'pk.eyJ1Ijoic2FsYm95bG95IiwiYSI6ImNsajdlMGZhejBxZW0zc29yeGRhc2wyejEifQ.RnDTZpaUp4Z71AgL3NF60w';
+    const map = L.map('map').setView([51.505, -0.09], 13);
+</script>
+<script type="module" src="/src/main.js"></script>
 
 </html>

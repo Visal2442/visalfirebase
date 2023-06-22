@@ -18,7 +18,7 @@
     "vue": "^3.2.47",
     "vue-router": "^4.2.2",
     "vue3-google-map": "^0.15.0",
-    "vuetify": "npm:@vuetify/nightly@next",
+    "vuetify": "^3.3.5",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
